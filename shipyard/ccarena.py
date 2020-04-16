@@ -79,10 +79,13 @@ def datos_iniciales():
 def damaged_tanks():
     DamagedTKsNumber=int(input("No. Damaged TKs:"))
     TanquesRestantes=DamagedTKsNumber
+    TanqueNumero=(DamagedTKsNumber-TanquesRestantes)+1
+
 
     while TanquesRestantes>0:
 
         TanqueNumero=(DamagedTKsNumber-TanquesRestantes)+1
+        NombreListaTanque="Tanque"+TanqueNumero
 
         print("Tanque No.",TanqueNumero)
         NombreTanque=input("Nombre del TK:")
@@ -120,7 +123,7 @@ def damaged_tanks():
         print("Empuje Perd.:", EmpujePerdidoTanque)
 
 
-        TanqueNumero=[TanqueNumero,NombreTanque,DobleFondo, EsloraTanque, MangaTanque, AlturaTanque, MaestraGTanque, LineaCentralGTanque, AsientoLongitudinalTanque, AsientoTransversalTanque, AsientoTotalTanque, CaladoInicialGdelTanque, EmpujePerdidoTanque]
+        NombreListaTanque=[NombreTanque,DobleFondo, EsloraTanque, MangaTanque, AlturaTanque, MaestraGTanque, LineaCentralGTanque, AsientoLongitudinalTanque, AsientoTransversalTanque, AsientoTotalTanque, CaladoInicialGdelTanque, EmpujePerdidoTanque]
 
 
         TanquesRestantes=TanquesRestantes-1
@@ -129,3 +132,4 @@ def damaged_tanks():
 
 datos_iniciales()
 damaged_tanks()
+
