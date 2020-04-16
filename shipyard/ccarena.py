@@ -4,6 +4,7 @@ import math
 
 # Variables
 # Ship's Particulars
+
 Eslora=0.0
 Manga=0.0
 EscoraInicial=0.0
@@ -11,13 +12,12 @@ DF=True
 AlturaDobleFondo=0.0
 CaladoProa=0.0
 CaladoPopa=0.0
+CaladoMedio=0.0
 AsientoInicial=float(CaladoPopa-CaladoProa)
 MaestraF=0.0
+CaladoCorregidoAsiento=0.0
 
-# Calculos Iniciales
-CorreccionAsiento=(AsientoInicial*MaestraF)/Eslora
-CaladoMedioInicial=float((CaladoPopa+CaladoProa)/2)
-CaladoCorregidoAsiento=CaladoMedioInicial+CorreccionAsiento
+
 
 CaladoInicialGdelTanque=0
 
@@ -38,25 +38,36 @@ CoeficientePermeabilidad=float()
 CaladoInicialGdelTanque=0.0
 
 
+
 # Datos Iniciales del Buque
+
 def datos_iniciales():
-    Eslora=float(input("Eslora: "))
+    Eslora=float(input("Eslora:"))
     Manga=float(input("Manga: "))
     EscoraInicial=float(input("Escora: "))
-    DF=bool(input("¿DF?:"))
+    CaladoProa=float(input("CPr: "))
+    CaladoPopa=float(input("CPp: "))
+    CaladoMedio=float((CaladoProa+CaladoPopa)/2)
+    print("Calado Medio:", CaladoMedio)
+
+
+    # Doble Fondo
+    DF=bool(input("¿Tiene DF?:"))
 
     if DF==True:
         AlturaDobleFondo=float(input("Altura DF: "))
 
 
-    CaladoProa=float(input("CPr: "))
-    CaladoPopa=float(input("CPp: "))
+
+    CaladoMedioInicial=float((CaladoPopa+CaladoProa)/2)
 
     AsientoInicial=float(CaladoPopa-CaladoProa)
 
     print("Asiento:", AsientoInicial)
     MaestraF=float(input("MaestraF: "))
+    CorreccionAsiento=(AsientoInicial*MaestraF)/Eslora
 
+    CaladoCorregidoAsiento=CaladoMedioInicial+CorreccionAsiento
 
     print("Asiento I:",AsientoInicial)
     print("C/A",CorreccionAsiento)
@@ -64,6 +75,7 @@ def datos_iniciales():
 
 
 # Compartimentos Dañados:
+
 def damaged_tanks():
     DamagedTKsNumber=int(input("No. Damaged TKs:"))
     TanquesRestantes=DamagedTKsNumber
@@ -75,7 +87,7 @@ def damaged_tanks():
         print("Tanque No.",TanqueNumero)
         NombreTanque=input("Nombre del TK:")
         DobleFondo=bool(input("DF=1 WBT=0"))
-        SobreDF=bool(input("YES=1; NO=0"))
+        
         EsloraTanque=float(input("Eslora TK: "))
         MangaTanque=float(input("Manga TK:"))
         AlturaTanque=float(input("Altura TK:"))
@@ -107,6 +119,7 @@ def damaged_tanks():
         print("C.I.G del TK.:",CaladoInicialGdelTanque)
         print("Empuje Perd.:", EmpujePerdidoTanque)
 
+
         TanqueNumero=[TanqueNumero,NombreTanque,DobleFondo, EsloraTanque, MangaTanque, AlturaTanque, MaestraGTanque, LineaCentralGTanque, AsientoLongitudinalTanque, AsientoTransversalTanque, AsientoTotalTanque, CaladoInicialGdelTanque, EmpujePerdidoTanque]
 
 
@@ -114,17 +127,5 @@ def damaged_tanks():
 
 
 
-
-    
-
-# Empuje Perdido en los Tanques
-
-
-
-
-
-
-
-
-
-
+datos_iniciales()
+damaged_tanks()
