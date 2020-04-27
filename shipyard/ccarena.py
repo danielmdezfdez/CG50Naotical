@@ -85,7 +85,7 @@ def damaged_tanks():
     while TanquesRestantes>0:
 
         TanqueNumero=(DamagedTKsNumber-TanquesRestantes)+1
-        NombreListaTanque="Tanque"+TanqueNumero
+        
 
         print("Tanque No.",TanqueNumero)
         NombreTanque=input("Nombre del TK:")
@@ -100,6 +100,9 @@ def damaged_tanks():
         CoeficientePermeabilidad=float(input("Permeabilidad:"))
         CaladoInicialGdelTanque=0.0
 
+
+# Calculo de Asientos de los Tanques
+
         AsientoLongitudinalTanque=float((MaestraGTanque*AsientoInicial)/Eslora) 
         AsientoTransversalTanque=float(LineaCentralGTanque*math.tan(EscoraInicial))
         AsientoTotalTanque=float(AsientoLongitudinalTanque+AsientoTransversalTanque)
@@ -112,6 +115,7 @@ def damaged_tanks():
             AsientoTotalTanque=0
             CaladoInicialGdelTanque=0
 
+# Calculo del Empuje Perdido en los Tanques
 
         EmpujePerdidoTanque=float(EsloraTanque*MangaTanque*(CaladoInicialGdelTanque-AlturaDobleFondo)*DensidadCarga*CoeficientePermeabilidad)
 
@@ -132,4 +136,6 @@ def damaged_tanks():
 
 datos_iniciales()
 damaged_tanks()
+
+
 
