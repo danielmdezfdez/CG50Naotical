@@ -1,12 +1,10 @@
 import math
 
 
-
 # Definimos las caracteristicas del barco
 
 class Ship():
         def __init__(self):
-
             # Ships Particulars
             self.LOA=0.0
             self.Beam=0.0
@@ -18,7 +16,7 @@ class Ship():
 
             # Doble Fondo            
             self.DFHeight=0.0
-            self.DF=int(0)
+            self.DF=bool(True)
 
             self.AsientoInicial=0.0
             self.MaestraF=0.0
@@ -37,11 +35,12 @@ class Ship():
         def double_hull(self):
 
             # Doble Fondo                     
-            self.DF=int(input("¿Tiene DF? True=1:"))
+            self.DFHeight=0.0
+            self.DF=bool(input("¿Tiene DF? True=1:"))
 
-            if self.DF==1:
+            if self.DF==True:
                 self.DFHeight=float(input("Altura DF: "))
-            elif self.DF==0:
+            else:
                 self.DFHeight=0.0
 
         def asiento_inicial(self, AftDraft, ForwardDraft):
@@ -61,9 +60,9 @@ class Ship():
 
 
 class Tank():
-    def __init__(self, DamagedTankName):
+    def __init__(self):
         # Obtener Nombre del Tanque
-        self.TankName=DamagedTankName
+        self.Nombre=DamagedTankName
 
         # Recuperar datos del Buque
         self.DFHeight=Ship().DFHeight
@@ -71,7 +70,7 @@ class Tank():
         self.CaladoCorregidoAsiento=barco.CaladoCorregidoAsiento
         
         # Pregunta si es DF
-        self.DobleFondo=input("¿DF? (YES=1;NO=0) ")
+        self.DobleFondo=bool(input("¿DF? YES=1"))
         
         self.EsloraTanque=float(input("Eslora TK: "))
         self.MangaTanque=float(input("Manga TK:"))
@@ -81,81 +80,43 @@ class Tank():
         self.MaestraGTanque=float(input("MaestraG:"))
         self.LineaCentralGTanque=float(input("LCg Tk:"))
 
-        self.AsientoTotalTanque=0.0
-        self.CaladoInicialGdelTanque=0.0
 
-        self.EmpujePerdidoTanque=0.0
 
     def asiento_longitudinal(self):
-     self.AsientoLongitudinalTanque=float(self.MaestraGTanque*barco.AsientoInicial/barco.LOA)
+            self.AsientoLongitudinalTanque=float(self.MaestraGTanque*barco.AsientoInicial/barco.LOA)
 
-     if self.DobleFondo==1:
-         self.AsientoLongitudinalTanque=0
+            if self.DobleFondo==True:
+                self.AsientoLongitudinalTanque=0
             
-     print("Asiento Longitudinal del TK")
-     return(self.AsientoLongitudinalTanque)
+            return(self.AsientoLongitudinalTanque)
 
     def asiento_transversal(self):
-         self.AsientoTransversalTanque=float(self.LineaCentralGTanque*math.tan(self.Heel))
+            self.AsientoTransversalTanque=float(self.LineaCentralGTanque*math.tan(self.Heel))
 
-         if self.DobleFondo==1:
-             self.AsientoTransversalTanque=0
+            if self.DobleFondo==True:
+                self.AsientoTransversalTanque=0
 
-         print("Asiento Transversal del TK")
-         return(self.AsientoTransversalTanque)
-
-    def asiento_total(self):
-     self.AsientoTotalTanque=float(self.AsientoLongitudinalTanque+self.AsientoTransversalTanque)
-
-     if self.DobleFondo==1:
-            self.AsientoTotalTanque=0
-
-     print("Asiento Total del TK:")
-     return(self.AsientoTotalTanque)
+            print(self.AsientoTransversalTanque)
 
     def caladoinicialgdeltanque(self):
-    
-     self.CaladoInicialGdelTanque=self.CaladoCorregidoAsiento+self.AsientoTotalTanque-(barco.DFHeight)
+            self.CaladoInicialGdelTanque=self.CaladoCorregidoAsiento+self.AsientoTotalTanque-(barco.DFHeight)
 
-     if self.DobleFondo==1:
-         self.AsientoLongitudinalTanque=0
+            if self.DobleFondo==True:
+                self.AsientoLongitudinalTanque=0
 
-     print("C.I. en g del TK:")
-     return(self.CaladoInicialGdelTanque)
+            return(self.CaladoInicialGdelTanque)
 
-    def lostbuoyancy(self):
+    def asiento_total(self):
+        self.AsientoTotalTanque=float(self.AsientoLongitudinalTanque+self.AsientoTransversalTanque)
 
-        self.LostBuoyancy=float(self.EsloraTanque*self.MangaTanque*(self.CaladoInicialGdelTanque-self.DFHeight)*self.DensidadCarga*self.CoeficientePermeabilidad)
-        print("Empuje Perdido:")
+        if self.DobleFondo==True:
+            self.AsientoTotalTanque=0
 
-        return(self.LostBuoyancy)
+        return(self.AsientoTotalTanque)
 
-
-# BARCO
-
-# Nombramos Barco
-barco=Ship()
-
-# Ejecutamos funciones del barco
-barco.ship_particulars()
-barco.double_hull()
-barco.asiento_inicial(barco.AftDraft, barco.ForwardDraft)
-barco.medium_draft(barco.AftDraft, barco.ForwardDraft)
-barco.maestra_f()
+    def empuje_perdido(self):
+        self.EmpujePerdidoTanque=float(self.EsloraTanque*self.MangaTanque*(self.CaladoInicialGdelTanque-self.DFHeight)*self.DensidadCarga*self.CoeficientePermeabilidad)
 
 
-# TANQUES
-DamagedTanks=int(input("Tanques Damaged Number: "))
-DamagedTanksCounter=DamagedTanks
 
-while DamagedTanksCounter>0:
-    DamagedTankName=input("Damaged Tank Name: ")
-    DamagedTankName=Tank(DamagedTankName)
-    print(DamagedTankName.asiento_longitudinal())
-    print(DamagedTankName.asiento_transversal())
-    print(DamagedTankName.asiento_total())
-    print(DamagedTankName.caladoinicialgdeltanque())
-    print(DamagedTankName.lostbuoyancy())
-
-    DamagedTanksCounter=DamagedTanksCounter-1
 
