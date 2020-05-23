@@ -1,6 +1,6 @@
 
 """
-Program for Seakeeping General Calculations
+Program for Seakeeping General Calculations - 2 Observers Onboard - No Angle Option
 
 Includes IMO Criteria and General Analysis
 """
@@ -24,17 +24,17 @@ beam=float(input("Beam:")) # Ships Construction Beam (Manga de Trazado)
 displacement=float(input("Displacement:")) # Desplazamiento del Buque
 GMT_CSL=float(input("GMt CSL: ")) # Distance from G to M (Transversal)
 
-side=str(input("Side: ")) # S
-balance_k_factor=float(input("Balance K: "))
-balance_f_factor=float(input("Balance F (0.77): "))
+side=str(input("Side: ")) # Side of Vessel - Currently does nothing
+balance_k_factor=float(input("Balance K: ")) # K Factor of Balanece - Currently does nothing
+balance_f_factor=float(input("Balance F (0.77): ")) # F Factor of Balance
 
 # Vessel Speed
-vessel_speed_knots=float(input("Speed (Kn): "))
-vessel_speed_ms=float(vessel_speed_knots*1852/3600)
+vessel_speed_knots=float(input("Speed (Kn): ")) # Vessel Speed Input (Knots)
+vessel_speed_ms=float(vessel_speed_knots*1852/3600) # Vessel Speed Calculated (m/s)
 
 # Waves Angle
-waves_angle_degrees=float(input("Angle (0 to 180):"))
-waves_angle_radians=float(math.radians(waves_angle_degrees))
+waves_angle_degrees=float(input("Angle (0 to 180):")) # Waves Angle Input - Degrees
+waves_angle_radians=float(math.radians(waves_angle_degrees)) # Waves Angle Calculation - Radians
 
 # Observers Data
 distance_AB=float(input("Distance AB:"))
@@ -42,10 +42,8 @@ time=float(input("Time (s): "))
 
 
 
+# Waves Calculations
 
-"""
-WAVES CALCULATIONS
-"""
 
 # Wave Apparent Speed
 wave_apparent_speed=float(abs((distance_AB*math.cos(waves_angle_radians))/time))
@@ -106,7 +104,7 @@ heel_calculated=heel_average_radians*math.sin(waves_angle_radians)/(1-(vessel_ro
 vessel_displacement_crest=float(displacement*1+((math.pi*wave_height)/wave_length))
 vessel_displacement_trough=float(displacement*1-((math.pi*wave_height)/wave_length))
 
-
+print("Vessel Conditions:")
 print("Vessel Roll Period:", vessel_roll_period, "s")
 print("Vessel Pitch Period:", vessel_pitch_period, " s")
 print("Vessel Heel Angle:", heel_calculated, " deg")
@@ -128,6 +126,7 @@ VESSELs SEAKEEPING CONDITIONS
 
 """
 
+"""
 # 1. Longitudinal Syncronism
 print("Condition 1: ")
 print("If Vessel Roll Period is approximately equal to Sea Apparent Period, there is Longitudinal Synchronism.")
@@ -150,3 +149,4 @@ print("Condition 2: ")
 print("If wave apparent period is similar to 0.5 vessel pitch period, there will be longitudinal synchronism.")
 print("2x LOA:", loa*2)
 print("Projected Wave Lenght: ", projected_wave_lenght, " m")
+"""
