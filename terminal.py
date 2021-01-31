@@ -58,3 +58,4 @@ class Terminal:
     if len(s)>0:
       r.append(s)
     return r    
+
